@@ -13,12 +13,12 @@ const userSchema = new mongoose.Schema(
         },
           password: {
             type: String,
-            required: [true, 'Ogbeni give us a password'],
+            required: [true, 'please provide a password'],
             minlength: 8,
         },
-            passwordChangedAt: {
-                type: Date,
-            },
+        passwordChangedAt: {
+            type: Date,
+        },
         passwordResetToken: String,
         passwordResetExpires: Date,
         active: {
