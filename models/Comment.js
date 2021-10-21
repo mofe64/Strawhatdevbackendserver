@@ -25,14 +25,6 @@ const commentSchema = new mongoose.Schema(
   }
 );
 
-commentSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'post',
-    select: 'title',
-  });
-  next();
-});
-
 const Comment = mongoose.model('Comment', commentSchema);
 
 export default Comment;

@@ -25,6 +25,10 @@ const postSchema = new mongoose.Schema(
             type: String,
             default: 'Backend development'
         }
+    },
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
     }
 );
 
