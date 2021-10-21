@@ -6,7 +6,8 @@ const postSchema = new mongoose.Schema(
         title: {
             type: String,
             required: [true, 'Please provide post title'],
-            index: true
+            index: true,
+            unique: true
         },
         slug: String,
         preview: {

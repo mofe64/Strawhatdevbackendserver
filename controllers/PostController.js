@@ -54,6 +54,28 @@ export const deletePost = catchAsync(async (req, res, next) => {
     });
 });
 
+export const updatePost = catchAsync(async (req, res, next) => {
+    const slug = req.params.slug;
+    const postToUpdate = await Post.findOne({ slug });
+    const { title, preview, body, tag } = req.body;
+    const updatedPost = await Post.findByIdAndUpdate(
+        postToUpdate._id,
+        {
+            title,
+            preview,
+            body,
+            tag,
+        },
+        {
+            new: true,
+            runValidators: true,
+        }
+    );
+    res.status(200).json({
+        updatedPost
+    });
+});
+
 export const getPostsMatchingTag = catchAsync(async (req, res, next) => {
     const tag = req.query.tag;
     const matchingPosts = await Post.find({ tag });

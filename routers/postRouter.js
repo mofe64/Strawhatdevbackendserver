@@ -4,6 +4,7 @@ import {
     getAllPosts,
     getPost,
     deletePost,
+    updatePost,
     getPostsMatchingTag,
     searchPosts,
     makeComment
@@ -32,6 +33,7 @@ postRouter
 postRouter
     .route('/:slug')
     .get(getPost)
+    .patch(updatePost)
     .delete(deletePost)
 
 
