@@ -7,15 +7,17 @@ import catchAsync from '../util/catchAsync.js';
 
 
 export const addPost = catchAsync(async (req, res, next) => {
-    const { title, preview, body, tag } = req.body;
+    const { title, preview, body, tags, draft } = req.body;
+    const tagArray = tags.split(',');
     const newPost = await Post.create({
         title,
         preview,
         body,
-        tag
+        tags: tagArray,
+        draft,
     });
     res.status(201).json({
-        newPost
+        post: newPost,
     })
 });
 
