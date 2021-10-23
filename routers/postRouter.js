@@ -2,6 +2,7 @@ import express from 'express';
 import {
     addPost,
     getAllPosts,
+    getAllDrafts,
     getPost,
     deletePost,
     updatePost,
@@ -16,6 +17,10 @@ postRouter
     .route('/')
     .post(addPost)
     .get(getAllPosts)
+
+postRouter
+    .route('/drafts')
+    .get(getAllDrafts)
 
 postRouter
     .route('/tags')

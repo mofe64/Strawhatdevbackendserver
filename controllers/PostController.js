@@ -26,11 +26,23 @@ export const getAllPosts = catchAsync(async (req, res, next) => {
     const page = req.query.page || 1;
     const limit = 20;
     const skip = (page - 1) * limit;
-    const posts = await Post.find().limit(limit).skip(skip).sort('-createdAt');
+    const posts = await Post.find({draft: false}).limit(limit).skip(skip).sort('-createdAt');
     res.status(200).json({
         posts
     });
 });
+
+export const getAllDrafts = catchAsync(async (req, res, next) => {
+    const page = req.query.page || 1;
+    const limit = 20;
+    const skip = (page - 1) * limit;
+    const posts = await Post.find({draft: true}).limit(limit).skip(skip).sort('-createdAt');
+    res.status(200).json({
+        posts
+    });
+});
+
+
 
 export const getPost = catchAsync(async (req, res, next) => {
     const slug = req.params.slug;
