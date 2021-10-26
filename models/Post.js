@@ -22,9 +22,12 @@ const postSchema = new mongoose.Schema(
             type: Date,
             default: Date.now(),
         },
-        tag: {
-            type: String,
+        tags: {
+            type: [String],
             default: 'Backend development'
+        },
+        draft: {
+            type: Boolean,
         }
     },
     {

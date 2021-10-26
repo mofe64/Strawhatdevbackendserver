@@ -7,15 +7,17 @@ import catchAsync from '../util/catchAsync.js';
 
 
 export const addPost = catchAsync(async (req, res, next) => {
-    const { title, preview, body, tag } = req.body;
+    const { title, preview, body, tags, draft } = req.body;
+    const tagArray = tags.split(',');
     const newPost = await Post.create({
         title,
         preview,
         body,
-        tag
+        tags: tagArray,
+        draft,
     });
     res.status(201).json({
-        newPost
+        post: newPost,
     })
 });
 
@@ -24,11 +26,27 @@ export const getAllPosts = catchAsync(async (req, res, next) => {
     const page = req.query.page || 1;
     const limit = 20;
     const skip = (page - 1) * limit;
-    const posts = await Post.find().limit(limit).skip(skip).sort('-createdAt');
+    const count = await Post.find({ draft: false }).countDocuments();
+    const posts = await Post.find({draft: false}).limit(limit).skip(skip).sort('-createdAt');
     res.status(200).json({
-        posts
+        posts,
+        count
     });
 });
+
+export const getAllDrafts = catchAsync(async (req, res, next) => {
+    const page = req.query.page || 1;
+    const limit = 20;
+    const skip = (page - 1) * limit;
+    const count = await Post.find({ draft: true }).countDocuments();
+    const posts = await Post.find({draft: true}).limit(limit).skip(skip).sort('-createdAt');
+    res.status(200).json({
+        posts,
+        count
+    });
+});
+
+
 
 export const getPost = catchAsync(async (req, res, next) => {
     const slug = req.params.slug;
